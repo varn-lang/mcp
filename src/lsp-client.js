@@ -55,9 +55,17 @@ class VarnLspClient {
                 `vn binary not found under ${this.workspaceRoot}. Set VARN_CLI_PATH or build with cargo build --bin vn.`
             );
         }
+        this.cliPath = cliPath;
+        this.cliMtime = fs.statSync(cliPath).mtime;
+        this.startedAt = Date.now();
 
         this.proc = spawn(cliPath, ["lsp"], { cwd: this.workspaceRoot });
         this.proc.stderr.on("data", (d) => this._pushTrace("stderr", d.toString()));
+        // The exit notification below asks the server to close its own end
+        // of the pipe; a queued write racing that close is expected during
+        // every shutdown, not a real fault — without this listener it is an
+        // unhandled 'error' event, which Node treats as fatal.
+        this.proc.stdin.on("error", () => {});
         this.proc.on("exit", (code) => {
             this._pushTrace("exit", `vn lsp exited with code ${code}`);
             this.connection = null;
@@ -126,12 +134,43 @@ class VarnLspClient {
         return this.trace.slice(-n);
     }
 
+    /** Close a document server-side and drop its local diagnostics/tracking. */
+    async closeDocument(absPath) {
+        const uri = toUri(absPath);
+        if (!this.openDocs.has(uri)) return;
+        await this.notify("textDocument/didClose", { textDocument: { uri } });
+        this.openDocs.delete(uri);
+        this.diagnostics.delete(uri);
+    }
+
+    status() {
+        return {
+            running: !!this.connection,
+            pid: this.proc ? this.proc.pid : null,
+            cliPath: this.cliPath || null,
+            cliMtime: this.cliMtime || null,
+            startedAt: this.startedAt || null,
+            uptimeMs: this.startedAt ? Date.now() - this.startedAt : null,
+            openDocuments: Array.from(this.openDocs.keys()).map(fromUri),
+            workspaceRoot: this.workspaceRoot
+        };
+    }
+
+    /** Tear down and spin up a fresh `vn lsp` — picks up a rebuilt binary. */
+    async restart() {
+        await this.stop();
+        this.openDocs.clear();
+        this.diagnostics.clear();
+        this._starting = null;
+        await this.ensureStarted();
+    }
+
     async stop() {
         try {
             if (this.connection) await this.connection.sendRequest("shutdown", null);
         } catch {}
         try {
-            if (this.connection) this.connection.sendNotification("exit", null);
+            if (this.connection) await this.connection.sendNotification("exit", null);
         } catch {}
         if (this.connection) this.connection.dispose();
         if (this.proc) this.proc.kill();
