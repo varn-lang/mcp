@@ -44,6 +44,34 @@ function register(server, ctx) {
     );
 
     server.registerTool(
+        "varn_lsp_perf_log",
+        {
+            title: "LSP perf warnings",
+            description:
+                "Just the `[perf]` entries the server logged (slow index, slow hover/completion/etc) — what surfaced the workspace-indexing priority-queue bug during this session, without wading through the full raw trace.",
+            inputSchema: {
+                limit: z.number().int().optional().describe("How many recent [perf] entries to return (default 100).")
+            }
+        },
+        async ({ limit }) => {
+            const perfEntries = client
+                .getTrace(4000)
+                .filter((e) => e.text.includes("[perf]"))
+                .map((e) => {
+                    const match = e.text.match(/\[perf\]\s+(.*?)\s*\(?(\d+)ms\)?/);
+                    return {
+                        ts: e.ts,
+                        raw: e.text.split("\n").find((l) => l.includes("[perf]")) || e.text,
+                        op: match ? match[1] : undefined,
+                        ms: match ? Number(match[2]) : undefined
+                    };
+                });
+            const n = limit && limit > 0 ? limit : 100;
+            return text(perfEntries.slice(-n));
+        }
+    );
+
+    server.registerTool(
         "varn_server_status",
         {
             title: "Server status",

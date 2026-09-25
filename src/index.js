@@ -34,6 +34,7 @@ for (const mod of [
     require("./tools/compiler_inspect"),
     require("./tools/editing"),
     require("./tools/execution"),
+    require("./tools/cli"),
     require("./tools/protocol")
 ]) {
     mod.register(server, ctx);
