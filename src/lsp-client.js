@@ -33,6 +33,7 @@ class VarnLspClient {
         this.openDocs = new Map(); // uri -> version
         this.trace = []; // ring buffer: { ts, direction, text }
         this._starting = null;
+        this._diagWaiters = new Map(); // uri -> resolve[] — see waitForDiagnostics
     }
 
     _pushTrace(direction, text) {
@@ -84,6 +85,11 @@ class VarnLspClient {
 
         this.connection.onNotification("textDocument/publishDiagnostics", (params) => {
             this.diagnostics.set(params.uri, params.diagnostics);
+            const waiters = this._diagWaiters.get(params.uri);
+            if (waiters) {
+                for (const resolve of waiters) resolve(params.diagnostics);
+                this._diagWaiters.delete(params.uri);
+            }
         });
 
         this.connection.listen();
@@ -127,6 +133,34 @@ class VarnLspClient {
 
     getDiagnostics(absPath) {
         return this.diagnostics.get(toUri(absPath)) || [];
+    }
+
+    /**
+     * Diagnostics arrive as a push notification after didOpen, not in the
+     * response — reading `diagnostics` immediately after `ensureOpen` races
+     * the server. Resolves as soon as the first batch for `absPath` lands
+     * (or immediately, if it already has), falling back to whatever's cached
+     * (possibly none) after `timeoutMs`.
+     */
+    async waitForDiagnostics(absPath, timeoutMs = 2000) {
+        const uri = toUri(absPath);
+        if (this.diagnostics.has(uri)) return this.diagnostics.get(uri);
+        return new Promise((resolve) => {
+            const timer = setTimeout(() => {
+                const arr = this._diagWaiters.get(uri);
+                if (arr) {
+                    const idx = arr.indexOf(wrapped);
+                    if (idx >= 0) arr.splice(idx, 1);
+                }
+                resolve(this.diagnostics.get(uri) || []);
+            }, timeoutMs);
+            const wrapped = (diags) => {
+                clearTimeout(timer);
+                resolve(diags);
+            };
+            if (!this._diagWaiters.has(uri)) this._diagWaiters.set(uri, []);
+            this._diagWaiters.get(uri).push(wrapped);
+        });
     }
 
     getTrace(limit) {

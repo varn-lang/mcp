@@ -18,7 +18,7 @@ function register(server, ctx) {
         async ({ path: relPath }) => {
             const abs = resolveInWorkspace(relPath);
             await client.ensureOpen(abs);
-            return text(client.getDiagnostics(abs));
+            return text(await client.waitForDiagnostics(abs));
         }
     );
 
@@ -27,15 +27,15 @@ function register(server, ctx) {
         {
             title: "All open diagnostics",
             description:
-                "Diagnostics for every file this session has opened so far (via any tool call) — a workspace-wide Problems panel, not just one file's.",
+                "Diagnostics for every file the server has published diagnostics for so far this session — a workspace-wide Problems panel, not just one file's.",
             inputSchema: {}
         },
         async () => {
             const out = {};
-            for (const uri of client.openDocs.keys()) {
+            for (const [uri, diags] of client.diagnostics.entries()) {
+                if (diags.length === 0) continue;
                 const rel = path.relative(workspaceRoot, fromUri(uri));
-                const diags = client.diagnostics.get(uri) || [];
-                if (diags.length > 0) out[rel] = diags;
+                out[rel] = diags;
             }
             return text(out);
         }
