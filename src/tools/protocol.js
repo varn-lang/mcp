@@ -72,6 +72,17 @@ function register(server, ctx) {
     );
 
     server.registerTool(
+        "varn_memory_stats",
+        {
+            title: "Server memory stats",
+            description:
+                "What the running vn lsp process actually knows about its own memory: OS-reported resident set size (Task Manager's number, read from inside the process — Windows/Linux only), how many documents it has cached, and the size of the shared atom/type tables. No external tool needed.",
+            inputSchema: {}
+        },
+        async () => text(await client.executeCommand("varn.memoryStats", []))
+    );
+
+    server.registerTool(
         "varn_server_status",
         {
             title: "Server status",
