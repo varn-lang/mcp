@@ -57,4 +57,16 @@ function resolveCliPath(workspaceRoot) {
     return findOnPath(binName);
 }
 
-module.exports = { resolveCliPath };
+/**
+ * The executable that runs `vn lsp`: `vn-shadow` when it sits next to `vn`, so
+ * the server runs from a private copy and rebuilding `vn` never hits a locked
+ * exe. One-shot commands keep spawning `vn` directly: killing them on timeout
+ * must kill the process that does the work.
+ */
+function resolveServerPath(cliPath) {
+    const ext = process.platform === "win32" ? ".exe" : "";
+    const shadow = path.join(path.dirname(cliPath), `vn-shadow${ext}`);
+    return fs.existsSync(shadow) ? shadow : cliPath;
+}
+
+module.exports = { resolveCliPath, resolveServerPath };

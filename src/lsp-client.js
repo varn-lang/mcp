@@ -5,7 +5,7 @@ const fs = require("fs");
 const path = require("path");
 const rpc = require("vscode-jsonrpc/node");
 
-const { resolveCliPath } = require("./binary");
+const { resolveCliPath, resolveServerPath } = require("./binary");
 
 const LOG_LIMIT = 4000;
 
@@ -60,7 +60,7 @@ class VarnLspClient {
         this.cliMtime = fs.statSync(cliPath).mtime;
         this.startedAt = Date.now();
 
-        this.proc = spawn(cliPath, ["lsp"], { cwd: this.workspaceRoot });
+        this.proc = spawn(resolveServerPath(cliPath), ["lsp"], { cwd: this.workspaceRoot });
         this.proc.stderr.on("data", (d) => this._pushTrace("stderr", d.toString()));
         // The exit notification below asks the server to close its own end
         // of the pipe; a queued write racing that close is expected during
@@ -207,7 +207,10 @@ class VarnLspClient {
             if (this.connection) await this.connection.sendNotification("exit", null);
         } catch {}
         if (this.connection) this.connection.dispose();
-        if (this.proc) this.proc.kill();
+        if (this.proc) {
+            this.proc.stdin.destroy();
+            this.proc.kill();
+        }
         this.connection = null;
     }
 }
