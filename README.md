@@ -1,4 +1,4 @@
-# varn-mcp
+# Varn MCP
 
 An MCP server that gives an agent the same view of a Varn workspace the
 editor gets — it speaks LSP directly to `vn lsp`, the exact binary and wire
@@ -11,49 +11,49 @@ running process.
 ## Tools
 
 **Files**
-- `varn_list_files` — every `.vn` file under the workspace (or a subdirectory).
-- `varn_read_file` — a file's raw text.
+- `vn_list_files` — every `.vn` file under the workspace (or a subdirectory).
+- `vn_read_file` — a file's raw text.
 
 **Navigation**
-- `varn_hover` — hover text at a position (type, signature, doc comment).
-- `varn_definition` / `varn_type_definition` / `varn_implementation` — go to
+- `vn_hover` — hover text at a position (type, signature, doc comment).
+- `vn_definition` / `vn_type_definition` / `vn_implementation` — go to
   declaration / type / implementation.
-- `varn_references` — every reference to a symbol, workspace-wide.
-- `varn_document_symbols` — a file's outline.
-- `varn_workspace_symbols` — search symbols by name across the workspace.
-- `varn_signature_help` — the parameter-hint popup inside a call.
-- `varn_completions` — what the editor would suggest at a position.
-- `varn_call_hierarchy` — incoming or outgoing calls for a function.
+- `vn_references` — every reference to a symbol, workspace-wide.
+- `vn_document_symbols` — a file's outline.
+- `vn_workspace_symbols` — search symbols by name across the workspace.
+- `vn_signature_help` — the parameter-hint popup inside a call.
+- `vn_completions` — what the editor would suggest at a position.
+- `vn_call_hierarchy` — incoming or outgoing calls for a function.
 
 **Diagnostics**
-- `varn_diagnostics` — the last diagnostics batch for one file.
-- `varn_workspace_diagnostics` — diagnostics for every file opened so far in
+- `vn_diagnostics` — the last diagnostics batch for one file.
+- `vn_workspace_diagnostics` — diagnostics for every file opened so far in
   this session.
-- `varn_code_actions` — quick fixes / refactors available for a range.
+- `vn_code_actions` — quick fixes / refactors available for a range.
 
 **Compiler views**
-- `varn_ast` / `varn_bytecode` / `varn_ssa` / `varn_cfg` — the same views the
+- `vn_ast` / `vn_bytecode` / `vn_ssa` / `vn_cfg` — the same views the
   editor's "Show AST" / "Show Bytecode" / "Show SSA" / CFG commands render.
 
 **Editing previews** (never write to disk)
-- `varn_format_preview` — the TextEdit[] the formatter would apply.
-- `varn_rename_preview` — the WorkspaceEdit a rename would produce.
+- `vn_format_preview` — the TextEdit[] the formatter would apply.
+- `vn_rename_preview` — the WorkspaceEdit a rename would produce.
 
 **Execution** (spawns `vn` directly, not through the LSP session)
-- `varn_run_file` — `vn run <file>`, real stdout/stderr/exit code.
-- `varn_check_file` — `vn check <file>`.
-- `varn_bench_file` — `vn bench <file>`.
+- `vn_run_file` — `vn run <file>`, real stdout/stderr/exit code.
+- `vn_check_file` — `vn check <file>`.
+- `vn_bench_file` — `vn bench <file>`.
 
 **Protocol / lifecycle**
-- `varn_raw_request` — send any LSP method/params straight through and get
+- `vn_raw_request` — send any LSP method/params straight through and get
   the raw response back.
-- `varn_lsp_log` — the raw JSON-RPC wire trace (every request, response,
+- `vn_lsp_log` — the raw JSON-RPC wire trace (every request, response,
   notification, both directions) — what an editor's LSP output channel shows.
-- `varn_server_status` — is the server alive, which binary + mtime it's
+- `vn_server_status` — is the server alive, which binary + mtime it's
   running (confirms a rebuild actually took), pid, uptime, open documents.
-- `varn_restart_server` — tear down and relaunch `vn lsp`, e.g. after a
+- `vn_restart_server` — tear down and relaunch `vn lsp`, e.g. after a
   rebuild.
-- `varn_close_file` — drop a file's open/diagnostics tracking.
+- `vn_close_file` — drop a file's open/diagnostics tracking.
 
 ## How it resolves `vn`
 
@@ -70,8 +70,8 @@ this package). Override with `VARN_MCP_WORKSPACE`.
 ## Registering
 
 - Claude Code: `varn-lang/.mcp.json` points at `../varn-mcp/src/index.js` as
-  a project-scoped server named `varn`.
-- VS Code: `varn.code-workspace`'s `mcp.servers.varn` does the same, using
+  a project-scoped server named `vn`.
+- VS Code: `varn.code-workspace`'s `mcp.servers.vn` does the same, using
   `${workspaceFolder:varn-mcp}`.
 
 ## License

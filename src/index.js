@@ -25,7 +25,7 @@ function resolveInWorkspace(relOrAbsPath) {
 
 const ctx = { client, workspaceRoot, resolveInWorkspace, text };
 
-const server = new McpServer({ name: "varn-mcp", version: "0.1.0" });
+const server = new McpServer({ name: "vn-mcp", version: "0.1.0" });
 
 for (const mod of [
     require("./tools/files"),
@@ -47,7 +47,7 @@ async function main() {
 }
 
 main().catch((err) => {
-    process.stderr.write(`varn-mcp fatal: ${err?.stack || err}\n`);
+    process.stderr.write(`vn-mcp fatal: ${err?.stack || err}\n`);
     process.exit(1);
 });
 

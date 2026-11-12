@@ -1,5 +1,5 @@
 {
-  "name": "varn-mcp",
+  "name": "vn-mcp",
   "version": "0.1.0",
   "description": "MCP server that gives an agent the same view of a Varn workspace the editor gets: it speaks LSP directly to `vn lsp`, the exact binary and protocol vscode-languageclient uses in the VS Code extension.",
   "private": true,
@@ -8,7 +8,7 @@
   "type": "commonjs",
   "main": "src/index.js",
   "bin": {
-    "varn-mcp": "src/index.js"
+    "vn-mcp": "src/index.js"
   },
   "scripts": {
     "start": "node src/index.js"
