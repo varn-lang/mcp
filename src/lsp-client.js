@@ -111,7 +111,7 @@ class VarnLspClient {
         if (this.openDocs.has(uri)) return uri;
         const text = fs.readFileSync(absPath, "utf8");
         this.connection.sendNotification("textDocument/didOpen", {
-            textDocument: { uri, languageId: "varn", version: 1, text }
+            textDocument: { uri, languageId: "vn", version: 1, text }
         });
         this.openDocs.set(uri, 1);
         return uri;

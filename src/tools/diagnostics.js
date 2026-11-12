@@ -8,7 +8,7 @@ function register(server, ctx) {
     const { client, resolveInWorkspace, text, workspaceRoot } = ctx;
 
     server.registerTool(
-        "varn_diagnostics",
+        "vn_diagnostics",
         {
             title: "Diagnostics",
             description:
@@ -23,7 +23,7 @@ function register(server, ctx) {
     );
 
     server.registerTool(
-        "varn_workspace_diagnostics",
+        "vn_workspace_diagnostics",
         {
             title: "All open diagnostics",
             description:
@@ -42,7 +42,7 @@ function register(server, ctx) {
     );
 
     server.registerTool(
-        "varn_code_actions",
+        "vn_code_actions",
         {
             title: "Code actions",
             description: "Quick fixes / refactors available for a range — what the editor's lightbulb menu offers.",

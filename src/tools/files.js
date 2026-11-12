@@ -6,7 +6,7 @@ const { z } = require("zod");
 
 function register(server, ctx) {
     server.registerTool(
-        "varn_list_files",
+        "vn_list_files",
         {
             title: "List Varn files",
             description:
@@ -32,7 +32,7 @@ function register(server, ctx) {
     );
 
     server.registerTool(
-        "varn_read_file",
+        "vn_read_file",
         {
             title: "Read a Varn source file",
             description: "Read a .vn file's raw text, path relative to the workspace root.",

@@ -14,7 +14,7 @@ function register(server, ctx) {
     };
 
     server.registerTool(
-        "varn_run_file",
+        "vn_run_file",
         {
             title: "Run file",
             description:
@@ -36,7 +36,7 @@ function register(server, ctx) {
     );
 
     server.registerTool(
-        "varn_check_file",
+        "vn_check_file",
         {
             title: "Typecheck file",
             description: "Runs `vn check <file>` — a full compile with no execution, exit code and diagnostics text.",
@@ -50,7 +50,7 @@ function register(server, ctx) {
     );
 
     server.registerTool(
-        "varn_bench_file",
+        "vn_bench_file",
         {
             title: "Benchmark file",
             description: "Runs `vn bench <file>` and returns the raw output — real numbers, not an estimate.",

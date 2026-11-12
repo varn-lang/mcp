@@ -8,7 +8,7 @@ function register(server, ctx) {
     const { client, resolveInWorkspace, text } = ctx;
 
     server.registerTool(
-        "varn_hover",
+        "vn_hover",
         {
             title: "Hover",
             description: "The same hover text the editor shows at a position — type, signature, doc comment.",
@@ -25,7 +25,7 @@ function register(server, ctx) {
     );
 
     server.registerTool(
-        "varn_definition",
+        "vn_definition",
         {
             title: "Go to definition",
             description: "Where the symbol at a position is declared.",
@@ -42,7 +42,7 @@ function register(server, ctx) {
     );
 
     server.registerTool(
-        "varn_type_definition",
+        "vn_type_definition",
         {
             title: "Go to type definition",
             description: "Where the TYPE of the symbol at a position is declared — distinct from the symbol's own declaration.",
@@ -59,7 +59,7 @@ function register(server, ctx) {
     );
 
     server.registerTool(
-        "varn_implementation",
+        "vn_implementation",
         {
             title: "Go to implementation",
             description: "Concrete implementations of the interface/abstract member at a position.",
@@ -76,7 +76,7 @@ function register(server, ctx) {
     );
 
     server.registerTool(
-        "varn_references",
+        "vn_references",
         {
             title: "Find references",
             description: "Every reference to the symbol at a position, workspace-wide.",
@@ -94,7 +94,7 @@ function register(server, ctx) {
     );
 
     server.registerTool(
-        "varn_document_symbols",
+        "vn_document_symbols",
         {
             title: "Document outline",
             description: "The file's symbol outline (classes, functions, fields...) — the same tree the editor's Outline view shows.",
@@ -108,7 +108,7 @@ function register(server, ctx) {
     );
 
     server.registerTool(
-        "varn_workspace_symbols",
+        "vn_workspace_symbols",
         {
             title: "Search workspace symbols",
             description: "Search every symbol in the workspace by (partial) name — the editor's Ctrl+T.",
@@ -121,7 +121,7 @@ function register(server, ctx) {
     );
 
     server.registerTool(
-        "varn_signature_help",
+        "vn_signature_help",
         {
             title: "Signature help",
             description: "The parameter-hint popup the editor shows inside a call's parentheses.",
@@ -138,7 +138,7 @@ function register(server, ctx) {
     );
 
     server.registerTool(
-        "varn_completions",
+        "vn_completions",
         {
             title: "Completions",
             description: "What the editor would suggest at a position — same trigger characters and ranking the completion popup uses.",
@@ -155,7 +155,7 @@ function register(server, ctx) {
     );
 
     server.registerTool(
-        "varn_call_hierarchy",
+        "vn_call_hierarchy",
         {
             title: "Call hierarchy",
             description: "Who calls this function, or what this function calls — pick a direction.",

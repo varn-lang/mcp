@@ -6,7 +6,7 @@ function register(server, ctx) {
     const { client, resolveInWorkspace, text } = ctx;
 
     server.registerTool(
-        "varn_raw_request",
+        "vn_raw_request",
         {
             title: "Raw LSP request",
             description:
@@ -31,7 +31,7 @@ function register(server, ctx) {
     );
 
     server.registerTool(
-        "varn_lsp_log",
+        "vn_lsp_log",
         {
             title: "Raw JSON-RPC log",
             description:
@@ -44,7 +44,7 @@ function register(server, ctx) {
     );
 
     server.registerTool(
-        "varn_lsp_perf_log",
+        "vn_lsp_perf_log",
         {
             title: "LSP perf warnings",
             description:
@@ -72,18 +72,18 @@ function register(server, ctx) {
     );
 
     server.registerTool(
-        "varn_memory_stats",
+        "vn_memory_stats",
         {
             title: "Server memory stats",
             description:
                 "What the running vn lsp process actually knows about its own memory: OS-reported resident set size (Task Manager's number, read from inside the process — Windows/Linux only), how many documents it has cached, and the size of the shared atom/type tables. No external tool needed.",
             inputSchema: {}
         },
-        async () => text(await client.executeCommand("varn.memoryStats", []))
+        async () => text(await client.executeCommand("vn.memoryStats", []))
     );
 
     server.registerTool(
-        "varn_server_status",
+        "vn_server_status",
         {
             title: "Server status",
             description:
@@ -94,7 +94,7 @@ function register(server, ctx) {
     );
 
     server.registerTool(
-        "varn_restart_server",
+        "vn_restart_server",
         {
             title: "Restart Language Server",
             description:
@@ -108,7 +108,7 @@ function register(server, ctx) {
     );
 
     server.registerTool(
-        "varn_close_file",
+        "vn_close_file",
         {
             title: "Close file",
             description: "Tell the server a file is no longer open, dropping its cached diagnostics on both sides.",

@@ -6,8 +6,8 @@ const { runVn } = require("../proc");
 
 /**
  * The rest of `vn` — test runner, formatter, package manager, cache, doctor,
- * build, eval, and the `debug -p` inspection instrument. varn_run_file /
- * varn_check_file / varn_bench_file (execution.js) came first because they
+ * build, eval, and the `debug -p` inspection instrument. vn_run_file /
+ * vn_check_file / vn_bench_file (execution.js) came first because they
  * were the obvious ones; this module is everything else the CLI can do, so
  * this MCP server covers Varn as a whole, not just what the LSP answers.
  */
@@ -21,7 +21,7 @@ function register(server, ctx) {
     };
 
     server.registerTool(
-        "varn_test",
+        "vn_test",
         {
             title: "Run test suite",
             description:
@@ -47,7 +47,7 @@ function register(server, ctx) {
     );
 
     server.registerTool(
-        "varn_fmt",
+        "vn_fmt",
         {
             title: "Format",
             description:
@@ -69,7 +69,7 @@ function register(server, ctx) {
     );
 
     server.registerTool(
-        "varn_pkg",
+        "vn_pkg",
         {
             title: "Package manager",
             description:
@@ -86,7 +86,7 @@ function register(server, ctx) {
     );
 
     server.registerTool(
-        "varn_cache_clean",
+        "vn_cache_clean",
         {
             title: "Clean cache",
             description: "Runs `vn cache clean` — clears ~/.varn/cache. Use before a check if a result looks stale/suspicious.",
@@ -96,7 +96,7 @@ function register(server, ctx) {
     );
 
     server.registerTool(
-        "varn_doctor",
+        "vn_doctor",
         {
             title: "Doctor",
             description: "Runs `vn doctor` — environment sanity check (VARN_HOME, std resolution, toolchain).",
@@ -106,7 +106,7 @@ function register(server, ctx) {
     );
 
     server.registerTool(
-        "varn_build",
+        "vn_build",
         {
             title: "Build",
             description: "Runs `vn build <file>` — compiles to bytecode (default) or, with native:true, AOT to a native executable.",
@@ -130,7 +130,7 @@ function register(server, ctx) {
     );
 
     server.registerTool(
-        "varn_eval",
+        "vn_eval",
         {
             title: "Eval",
             description: "Runs `vn eval <code>` — a one-off snippet, no file needed.",
@@ -145,7 +145,7 @@ function register(server, ctx) {
     );
 
     server.registerTool(
-        "varn_debug_inspect",
+        "vn_debug_inspect",
         {
             title: "Debug instrument (vn debug -p)",
             description:

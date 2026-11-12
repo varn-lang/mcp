@@ -17,15 +17,15 @@ function register(server, ctx) {
         );
     };
 
-    define("varn_ast", "varn.showAst", "Show AST", "The parsed syntax tree, as `Varn: Show AST` renders it in the editor.");
+    define("vn_ast", "vn.showAst", "Show AST", "The parsed syntax tree, as `Varn: Show AST` renders it in the editor.");
     define(
-        "varn_bytecode",
-        "varn.showBytecode",
+        "vn_bytecode",
+        "vn.showBytecode",
         "Show bytecode",
         "Compiles the file and disassembles the bytecode the VM would actually run — what `Varn: Show Bytecode` shows."
     );
-    define("varn_ssa", "varn.showSSA", "Show SSA", "The TIR/SSA the JIT lowers from, one function at a time.");
-    define("varn_cfg", "varn.getCFG", "Get CFG", "The control-flow graph the visual debugger draws, as structured JSON.");
+    define("vn_ssa", "vn.showSSA", "Show SSA", "The TIR/SSA the JIT lowers from, one function at a time.");
+    define("vn_cfg", "vn.getCFG", "Get CFG", "The control-flow graph the visual debugger draws, as structured JSON.");
 }
 
 module.exports = { register };

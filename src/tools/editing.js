@@ -6,7 +6,7 @@ function register(server, ctx) {
     const { client, resolveInWorkspace, text } = ctx;
 
     server.registerTool(
-        "varn_format_preview",
+        "vn_format_preview",
         {
             title: "Format preview",
             description:
@@ -24,7 +24,7 @@ function register(server, ctx) {
     );
 
     server.registerTool(
-        "varn_rename_preview",
+        "vn_rename_preview",
         {
             title: "Rename preview",
             description:
