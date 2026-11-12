@@ -3,6 +3,8 @@
   "version": "0.1.0",
   "description": "MCP server that gives an agent the same view of a Varn workspace the editor gets: it speaks LSP directly to `vn lsp`, the exact binary and protocol vscode-languageclient uses in the VS Code extension.",
   "private": true,
+  "license": "Apache-2.0",
+  "repository": { "type": "git", "url": "https://github.com/varn-lang/mcp" },
   "type": "commonjs",
   "main": "src/index.js",
   "bin": {

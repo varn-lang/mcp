@@ -73,3 +73,7 @@ this package). Override with `VARN_MCP_WORKSPACE`.
   a project-scoped server named `varn`.
 - VS Code: `varn.code-workspace`'s `mcp.servers.varn` does the same, using
   `${workspaceFolder:varn-mcp}`.
+
+## License
+
+Apache-2.0, see `LICENSE`.
