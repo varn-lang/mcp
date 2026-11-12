@@ -3,10 +3,10 @@
 const fs = require("fs");
 const path = require("path");
 
-/** Mirrors varn-extension/src/binary.js's resolution order, standalone (no vscode API). */
+/** Mirrors varn-extension/src/binary.ts's resolution order, standalone (no vscode API). */
 
-function varnHomeBinPath(binName) {
-    const home = process.env.VARN_HOME;
+function vnHomeBinPath(binName) {
+    const home = process.env.VN_HOME;
     if (!home) return undefined;
     return path.join(home, "bin", binName);
 }
@@ -27,15 +27,15 @@ function findOnPath(executable) {
  *   workspace with its own target/ dir).
  */
 function resolveCliPath(workspaceRoot) {
-    const override = process.env.VARN_CLI_PATH;
+    const override = process.env.VN_CLI_PATH;
     if (override && fs.existsSync(override)) return override;
 
     const binName = process.platform === "win32" ? "vn.exe" : "vn";
-    const mode = process.env.VARN_BUILD_MODE === "release" ? "release" : "debug";
+    const mode = process.env.VN_BUILD_MODE === "release" ? "release" : "debug";
     const order = mode === "release" ? ["release", "debug"] : ["debug", "release"];
 
     const candidates = [];
-    const homeBin = varnHomeBinPath(binName);
+    const homeBin = vnHomeBinPath(binName);
     if (homeBin) candidates.push(homeBin);
 
     for (const dir of order) {

@@ -99,7 +99,7 @@ function register(server, ctx) {
         "vn_doctor",
         {
             title: "Doctor",
-            description: "Runs `vn doctor` — environment sanity check (VARN_HOME, std resolution, toolchain).",
+            description: "Runs `vn doctor` — environment sanity check (VN_HOME, std resolution, toolchain).",
             inputSchema: {}
         },
         async () => text(await runVn(cliPath(), ["doctor"], workspaceRoot))

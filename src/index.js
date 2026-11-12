@@ -5,13 +5,13 @@ const path = require("path");
 const { McpServer } = require("@modelcontextprotocol/sdk/server/mcp.js");
 const { StdioServerTransport } = require("@modelcontextprotocol/sdk/server/stdio.js");
 
-const { VarnLspClient } = require("./lsp-client");
+const { VnLspClient } = require("./lsp-client");
 
 const workspaceRoot = path.resolve(
-    process.env.VARN_MCP_WORKSPACE || path.resolve(__dirname, "..", "..", "varn-lang")
+    process.env.VN_MCP_WORKSPACE || path.resolve(__dirname, "..", "..", "varn-lang")
 );
 
-const client = new VarnLspClient(workspaceRoot);
+const client = new VnLspClient(workspaceRoot);
 
 function text(payload) {
     const body = typeof payload === "string" ? payload : JSON.stringify(payload, null, 2);

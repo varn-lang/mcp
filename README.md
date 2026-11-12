@@ -57,15 +57,15 @@ running process.
 
 ## How it resolves `vn`
 
-Same order as `varn-extension/src/binary.js`: `VARN_CLI_PATH` override,
-`VARN_HOME/bin`, `<workspace>/target/{debug,release}` (mode via
-`VARN_BUILD_MODE`, default debug), the sibling `varn-lang` checkout, then
+Same order as `varn-extension/src/binary.ts`: `VN_CLI_PATH` override,
+`VN_HOME/bin`, `<workspace>/target/{debug,release}` (mode via
+`VN_BUILD_MODE`, default debug), the sibling `varn-lang` checkout, then
 `PATH`.
 
 ## Workspace root
 
 Defaults to the sibling `varn-lang` directory (`../varn-lang` relative to
-this package). Override with `VARN_MCP_WORKSPACE`.
+this package). Override with `VN_MCP_WORKSPACE`.
 
 ## Registering
 

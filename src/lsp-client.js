@@ -24,7 +24,7 @@ function fromUri(uri) {
  * a re-derivation of what the server knows: every answer is the server's own,
  * over the same JSON-RPC connection an editor would use.
  */
-class VarnLspClient {
+class VnLspClient {
     constructor(workspaceRoot) {
         this.workspaceRoot = path.resolve(workspaceRoot);
         this.connection = null;
@@ -53,7 +53,7 @@ class VarnLspClient {
         const cliPath = resolveCliPath(this.workspaceRoot);
         if (!cliPath) {
             throw new Error(
-                `vn binary not found under ${this.workspaceRoot}. Set VARN_CLI_PATH or build with cargo build --bin vn.`
+                `vn binary not found under ${this.workspaceRoot}. Set VN_CLI_PATH or build with cargo build --bin vn.`
             );
         }
         this.cliPath = cliPath;
@@ -215,4 +215,4 @@ class VarnLspClient {
     }
 }
 
-module.exports = { VarnLspClient, toUri, fromUri };
+module.exports = { VnLspClient, toUri, fromUri };
